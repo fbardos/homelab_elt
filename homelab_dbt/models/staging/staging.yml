@@ -1,0 +1,9 @@
+
+sources:
+  - name: ktzh_gwr
+    database: data
+    schema: src
+    tables:
+      - name: ktzh_gwr_apartments
+      - name: ktzh_gwr_houses
+      - name: ktzh_gwr_entrance
