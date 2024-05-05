@@ -49,7 +49,7 @@ RUN sed -i "s/TEMPLATE_TYPE/${PROFILE_TYPE}/g" profiles/profiles.yml \
 COPY . .
 
 # Install dbt dependencies
-RUN dbt deps
+RUN dbt deps --profiles-dir profiles
 
 # Build documentation
 RUN dbt docs generate --profiles-dir profiles

@@ -1,3 +1,10 @@
+{{
+    config(
+      materialized='incremental',
+      unique_key='_surrogate_key'
+    )
+}}
+
 with src as (
     select
         "Stichtag"::DATE as stichtag
@@ -45,11 +52,12 @@ with src as (
         , eged
         , egid
         , ewid
+        , {{ dbt_utils.generate_surrogate_key(['egid', 'ewid', 'stichtag']) }} as _surrogate_key
         , _airbyte_raw_id
         , _airbyte_extracted_at
         , _airbyte_meta
     from src
-
 )
+
 select *
 from intm

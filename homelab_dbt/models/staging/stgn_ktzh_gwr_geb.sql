@@ -1,3 +1,10 @@
+{{
+    config(
+      materialized='incremental',
+      unique_key='_surrogate_key'
+    )
+}}
+
 with src as (
     select
         "BFS_NR"::INT as gemeinde_bfs_id
@@ -72,7 +79,75 @@ with src as (
 )
 , intm as (
     select
-        *
+        gemeinde_bfs_id
+        , gemeinde
+        , kanton
+        , stichtag
+        , egid
+        , eggi
+        , bauperiode_id
+        , bauperiode
+        , geb_flaeche
+        , geb_volumen
+        , anzahl_geschosse
+        , anzahl_wohnungen
+        , grundstuecksnummer
+        , gebaeude_name
+        , gebaeudeklasse_id
+        , gebaeudeklasse
+        , gebaeudestatus_id
+        , gebaeudestatus
+        , geb_koord_e
+        , geb_koord_n
+        , energiebezugsflaeche
+        , grundbuchkreisnummer
+        , zivilschutzraum_id
+        , zivilschutzraum
+        , geb_baujahr
+        , geb_baumonat
+        , gebaeudekategorie_id
+        , gebaeudekategorie
+        , amtliche_gebaeudenummer
+        , koordinatenherkunft_id
+        , koordinatenherkunft
+        , geb_abbruchjahr
+        , gebaeudevolumen_norm_id
+        , gebaeudevolumen_norm
+        , anzahl_separate_wohnraeume
+        , waermeerzeuger_heizung_primaer_id
+        , waermeerzeuger_heizung_primaer
+        , aktualisierungsdatum_heizung_primaer
+        , waermeerzeuger_heizung_sekundaer_id
+        , waermeerzeuger_heizung_sekundaer
+        , aktualisierungsdatum_heizung_sekundaer
+        , waermeerzeuger_warmwasser_primaer_id
+        , waermeerzeuger_warmwasser_primaer
+        , aktualisierungsdatum_warmwasser_primaer
+        , informationsquelle_heizung_primaer_id
+        , informationsquelle_heizung_primaer
+        , waermeerzeuger_warmwasser_sekundaer_id
+        , waermeerzeuger_warmwasser_sekundaer
+        , aktualisierungsdatum_warmwasser_sekundaer
+        , informationsquelle_heizung_sekundaer_id
+        , informationsquelle_heizung_sekundaer
+        , energie_waermequelle_heizung_primaer_id
+        , energie_waermequelle_heizung_primaer
+        , informationsquelle_warmwasser_primaer_id
+        , informationsquelle_warmwasser_primaer
+        , informationsquelle_zum_gebaeudevolumen_id
+        , informationsquelle_zum_gebaeudevolumen
+        , energie_waermequelle_heizung_sekundaer_id
+        , energie_waermequelle_heizung_sekundaer
+        , informationsquelle_warmwasser_sekundaer_id
+        , informationsquelle_warmwasser_sekundaer
+        , energie_waermequelle_warmwasser_primaer_id
+        , energie_waermequelle_warmwasser_primaer
+        , energie_waermequelle_warmwasser_sekundaer_id
+        , energie_waermequelle_warmwasser_sekundaer
+        , {{ dbt_utils.generate_surrogate_key(['egid', 'stichtag']) }} as _surrogate_key
+        , _airbyte_raw_id
+        , _airbyte_extracted_at
+        , _airbyte_meta
     from src
 
 )
