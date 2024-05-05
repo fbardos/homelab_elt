@@ -13,3 +13,18 @@ sources:
       - name: ktzh_ogd_metadata
       - name: ktzh_downloads_dataset
 
+models:
+
+  # ---------------------------------------------------------------------------
+  - name: stgn_ktzh_downloads_dataset
+  # ---------------------------------------------------------------------------
+    description: |
+      Staging table for KTZH download statistics.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: ['datum', 'datensatz_id']
+    columns:
+      - name: datum
+        tests:
+          - dbt_expectations.expect_column_to_exist
+
