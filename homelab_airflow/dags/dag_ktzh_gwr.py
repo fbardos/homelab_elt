@@ -1,10 +1,12 @@
-from airflow import DAG
-from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
 import datetime as dt
+
+from airflow import DAG
+from airflow.models import Variable
+from airflow.operators.empty import EmptyOperator
+from airflow.providers.airbyte.operators.airbyte import \
+    AirbyteTriggerSyncOperator
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
-from airflow.operators.empty import EmptyOperator
-
 from python_docker_operator.operator import PythonDockerOperator
 
 with DAG(
@@ -27,7 +29,7 @@ with DAG(
     el_whg = AirbyteTriggerSyncOperator(
         task_id='extract_load_ktzh_gwr_apartments',
         airbyte_conn_id='lab_airbyte',
-        connection_id='0c377a06-d676-4411-87d1-a687c4d153ef',
+        connection_id=Variable.get('AIRBYTE__KTZH_GWR_APARTMENTS__POSTGRES'),
     )
     el_whg.set_upstream(start_el)
 
@@ -53,7 +55,7 @@ with DAG(
     el_geb = AirbyteTriggerSyncOperator(
         task_id='extract_load_ktzh_gwr_houses',
         airbyte_conn_id='lab_airbyte',
-        connection_id='d0c694cf-5e58-41ff-af17-c79fcc1ed824',
+        connection_id=Variable.get('AIRBYTE__KTZH_GWR_HOUSES__POSTGRES'),
     )
     el_geb.set_upstream(start_el)
 
@@ -79,7 +81,7 @@ with DAG(
     el_ein = AirbyteTriggerSyncOperator(
         task_id='extract_load_ktzh_gwr_entrances',
         airbyte_conn_id='lab_airbyte',
-        connection_id='0ac48080-5617-4a1d-ba2e-0f68ddf94066',
+        connection_id=Variable.get('AIRBYTE__KTZH_GWR_ENTRANCE__POSTGRES'),
     )
     el_ein.set_upstream(start_el)
 
