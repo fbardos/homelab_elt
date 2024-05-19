@@ -1,9 +1,10 @@
-from airflow import DAG
-from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
 import datetime as dt
-from airflow.providers.docker.operators.docker import DockerOperator
 
-from python_docker_operator.operator import PythonDockerOperator
+from airflow import DAG
+from airflow.models import Variable
+from airflow.providers.airbyte.operators.airbyte import \
+    AirbyteTriggerSyncOperator
+from airflow.providers.docker.operators.docker import DockerOperator
 
 with DAG(
     dag_id='ktzh_download_statistics',
@@ -21,7 +22,7 @@ with DAG(
     el = AirbyteTriggerSyncOperator(
         task_id='extract_load_ktzh_downloads',
         airbyte_conn_id='lab_airbyte',
-        connection_id='4becdaa8-8021-4f1f-b2f4-5da2434a5ac1',
+        connection_id=Variable.get('AIRBYTE__KTZH_DOWNLOADS__POSTGRES'),
     )
 
     dbt_run = DockerOperator(
