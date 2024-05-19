@@ -27,6 +27,7 @@ with DAG(
 
     dbt_run = DockerOperator(
         task_id='run_dbt_models',
+        docker_url=Variable.get('DOCKER__URL'),
         image='fbardos/lab-dbt:latest',
         network_mode='host',
         command='dbt run --profiles-dir profiles -s stgn_ktzh_downloads_dataset+'
@@ -34,6 +35,7 @@ with DAG(
 
     dbt_test = DockerOperator(
         task_id='test_dbt_models',
+        docker_url=Variable.get('DOCKER__URL'),
         image='fbardos/lab-dbt:latest',
         network_mode='host',
         command='dbt test --profiles-dir profiles --store-failures -s stgn_ktzh_downloads_dataset+'
