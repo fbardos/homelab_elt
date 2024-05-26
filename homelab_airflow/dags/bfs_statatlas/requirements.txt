@@ -1,0 +1,10 @@
+apache-airflow
+psycopg2
+sqlalchemy==1.4.52
+pymongo
+redis
+sqlmodel
+
+pandas==2.1
+requests
+tqdm
