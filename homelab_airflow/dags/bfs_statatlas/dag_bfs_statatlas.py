@@ -20,7 +20,7 @@ with DAG(
 
     elt = PythonDockerOperator(
         task_id='elt',
-        docker_url=Variable.get('DOCKER_URL'),
+        docker_url=Variable.get('DOCKER__URL'),
         image='fbardos/bfs_statatlas:latest',
         custom_file_path='run_bfs_statatlas_iteration.py',
         custom_connection_ids=['lab_postgis']
