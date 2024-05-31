@@ -1,6 +1,7 @@
 import datetime as dt
 
 from airflow import DAG
+from airflow.models import Variable
 
 from python_docker_operator.operator import PythonDockerOperator
 
@@ -19,6 +20,7 @@ with DAG(
 
     elt = PythonDockerOperator(
         task_id='elt',
+        docker_url=Variable.get('DOCKER_URL'),
         image='fbardos/bfs_statatlas:latest',
         custom_file_path='run_bfs_statatlas_iteration.py',
         custom_connection_ids=['lab_postgis']
