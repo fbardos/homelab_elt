@@ -6,7 +6,7 @@ from python_docker_operator.operator import PythonDockerOperator
 
 with DAG(
     dag_id='bfs_statatlas',
-    schedule_interval='0 4 * * 6',
+    schedule_interval='0 4 10 * *',
     start_date=dt.datetime(2024, 1, 1),
     max_active_runs=1,
     catchup=False,
@@ -20,7 +20,7 @@ with DAG(
     elt = PythonDockerOperator(
         task_id='elt',
         image='fbardos/bfs_statatlas:latest',
-        custom_file_path='run_bfs_statatlas.py',
+        custom_file_path='run_bfs_statatlas_iteration.py',
         custom_connection_ids=['lab_postgis']
     )
 
