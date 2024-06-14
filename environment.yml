@@ -13,6 +13,7 @@ dependencies:
   - plotly
   - pymongo
   - requests
+  - aiohttp
   - neovim
   - isort
   - jupyterlab
@@ -34,10 +35,12 @@ dependencies:
   - apache-airflow-providers-postgres
   - apache-airflow-providers-docker
   - apache-airflow-providers-airbyte
+  - apache-airflow-providers-amazon
   - jinja2=3.0.3
   - aiohttp
   - pip:
     - redis
+    - docker
     - dbt-core
     - dbt-postgres
 
