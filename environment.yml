@@ -43,4 +43,6 @@ dependencies:
     - docker
     - dbt-core
     - dbt-postgres
+    - dagster-dbt
+    - dagster-webserver
 
