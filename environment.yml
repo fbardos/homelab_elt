@@ -45,4 +45,6 @@ dependencies:
     - dbt-postgres
     - dagster-dbt
     - dagster-webserver
+    - gtfs-realtime-bindings
+    - protobuf3-to-dict
 
